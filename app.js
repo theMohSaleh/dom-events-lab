@@ -36,10 +36,6 @@ let calObject = {
     operation: [],
 };
 
-/**
- * 
- */
-
 /*------------------------ Cached Element References ------------------------*/
 
 let displayEL = document.querySelector('.display');
@@ -109,10 +105,10 @@ function displayOutput() {
 
 // function to select and store the numbers for calculation
 function selectNumber(eventVal) {
-    // change defaultNum to false when selecting a number for the first time
     if (currentNumber != 0) {
         currentNumber += eventVal.toString();
     } else {
+        // change defaultNum to false when selecting a number for the first time
         defaultNum = false;
         currentNumber = eventVal.toString();
     }
@@ -131,9 +127,11 @@ function amendOperation(num, op) {
 
 // function to calculate the numbers selected
 function calculateValues() {
+    // variables
     let result = 0;
     let calString = "";
 
+    // add the number with the operation selected
     calObject.numbers.forEach((num, index) => {
         calString += `${num}${calObject.operation[index]}`;
     })
@@ -146,6 +144,7 @@ function calculateValues() {
     */
 
     result = eval(calString);
+
     // clear calculator to reset all values and then assign the result of the calculation
     clearCalculator();
     currentNumber = result;
