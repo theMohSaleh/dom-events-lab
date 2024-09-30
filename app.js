@@ -1,17 +1,19 @@
 /*
 
+* As a user, I want to be able to select numbers so that I can perform operations with them.
+* As a user, I want to be able to add two numbers together.
+* As a user, I want to be able to subtract one number from another.
+* As a user, I want to be able to multiply two numbers together.
+* As a user, I want to be able to divide one number by another.`
+* As a user, I want to be able to see the output of the mathematical operation.
+* As a user, I want to be able to clear all operations and start from 0.
+
+
 Your primary goal is to implement the user stories listed above.
 The Minimum Viable Product (MVP) for this lab focuses on basic functionality and does not
 cover edge cases, such as pressing an operator button multiple times.
 You are encouraged to tackle these advanced cases once you have achieved the MVP.
 
- * As a user, I want to be able to select numbers so that I can perform operations with them.
- * As a user, I want to be able to add two numbers together.
- * As a user, I want to be able to subtract one number from another.
- * As a user, I want to be able to multiply two numbers together.
- * As a user, I want to be able to divide one number by another.`
- * As a user, I want to be able to see the output of the mathematical operation.
- * As a user, I want to be able to clear all operations and start from 0.
 
 Start with the basics: Begin by implementing simple operations like 1 + 1 or 4 - 2.
 
@@ -36,6 +38,25 @@ let calObject = {
     operation: [],
 };
 
+/*
+ calObject has the following properties:
+    - number: stores the value of all selected numbers
+    - operation: stores the operations selected
+
+    the calculateValues function will loop through all the available numbers and
+    apend it to a string while apending an operation from same index
+    
+    for example:
+        numbers: ['5', '10']
+        operation: ['/', '+']
+
+        will turn into:
+        "5 / 10 + "
+
+        the function will then add the currentNumber, which is whatever the user has
+        entered at the end.
+ */
+
 /*------------------------ Cached Element References ------------------------*/
 
 let displayEL = document.querySelector('.display');
@@ -57,16 +78,16 @@ calculator.addEventListener('click', (event) => {
             switch (target.innerText) {
                 // perform the relative operation
                 case '*':
-                    amendOperation(currentNumber, "*");
+                    apendNumberAndOperation(currentNumber, "*");
                     break;
                 case '/':
-                    amendOperation(currentNumber, "/");
+                    apendNumberAndOperation(currentNumber, "/");
                     break;
                 case '+':
-                    amendOperation(currentNumber, "+");
+                    apendNumberAndOperation(currentNumber, "+");
                     break;
                 case '-':
-                    amendOperation(currentNumber, "-");
+                    apendNumberAndOperation(currentNumber, "-");
                     break;
                 case '=':
                     calculateValues();
@@ -89,7 +110,7 @@ function displayOutput() {
     } else {
         // check if user has selected any number
         if (currentNumber != 0 && calObject.length != 0) {
-            displayEL.textContent = ""; // reset text to show current values
+            displayEL.textContent = ""; // reset text to add current values only
 
             // loop through all numbers selected and get the operation selected with those numbers
             // this makes sure that the content is displayed in the order the user has added the values in
@@ -115,7 +136,7 @@ function selectNumber(eventVal) {
 }
 
 // function to store number and operation selected by the user
-function amendOperation(num, op) {
+function apendNumberAndOperation(num, op) {
     if (num != 0) {
         defaultNum = true; // reset defaultNum to display the correct value
         calObject.operation.push(op);
@@ -136,6 +157,7 @@ function calculateValues() {
         calString += `${num}${calObject.operation[index]}`;
     })
 
+    // add the current number to the calculation string
     calString += currentNumber;
 
     /*
